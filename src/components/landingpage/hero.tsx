@@ -134,8 +134,8 @@ export default function Hero() {
                             >
                                 Get started, it's free!
                             </a>
-                            <a href="#" className="text-sm font-semibold leading-6 text-gray-900 underline">
-                                See pricing plans <span aria-hidden="true">→</span>
+                            <a href="/temp" className="text-sm font-semibold leading-6 text-gray-900 underline">
+                                Open Dashboard <span aria-hidden="true">→</span>
                             </a>
                         </div>
                     </div>

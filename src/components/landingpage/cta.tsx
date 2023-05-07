@@ -30,8 +30,8 @@ export default function Cta() {
                             >
                                 Get started for free
                             </a>
-                            <a href="#" className="text-sm font-semibold leading-6 text-white underline">
-                                Learn more <span aria-hidden="true">→</span>
+                            <a href="/temp" className="text-sm font-semibold leading-6 text-white underline">
+                                Open Dashboard <span aria-hidden="true">→</span>
                             </a>
                         </div>
                     </div>
