@@ -8,7 +8,7 @@ interface Props {
     setOpen: Dispatch<SetStateAction<boolean>>,
     content: string
 }
-export default function Modal({ open, setOpen, content }: Props) {
+export default function QRModal({ open, setOpen, content }: Props) {
 
     console.log(content);
 

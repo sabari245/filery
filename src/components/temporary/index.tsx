@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { QrCodeIcon, PlusIcon } from '@heroicons/react/24/outline'
 import QRCode from "qrcode.react";
-import Modal from './modal';
+import QRModal from './qrModal';
 
 const user = {
     name: 'Tom Cook',
@@ -50,14 +50,44 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
+function FileUploading() {
+    return (
+        <div className="relative w-full p-4 mb-8 overflow-hidden bg-white shadow-lg rounded-xl md:w-72">
+            <div className="flex items-center w-full">
+                <a href="#" className="relative block p-2 text-indigo-600 bg-indigo-100 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
+                    </svg>
+                </a>
+                <div className="flex flex-col items-center ml-2">
+                    <span className="">
+                        Uploading file
+                    </span>
+                </div>
+            </div>
+            <div className="flex items-center justify-between my-2">
+            </div>
+            <div className="w-full h-2 bg-blue-200 rounded-full">
+                <div className="w-2/3 h-full text-xs text-center text-white bg-blue-600 rounded-full">
+                </div>
+            </div>
+        </div>
+    )
+}
+
 export default function TemporaryDashboard() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [qrCode, setQrCode] = useState('');
+    const fileUploadRef = useRef<HTMLInputElement>(null);
 
     function openModal(content: string) {
         setIsModalOpen(true);
         setQrCode(content);
+    }
+
+    function handleFileUpload() {
+        fileUploadRef.current?.click();
     }
 
     return (
@@ -81,10 +111,13 @@ export default function TemporaryDashboard() {
                             </div>
                         </div>
                         <div className="flex flex-row-reverse my-4">
-                            <button className="inline-block px-4 py-2 text-xs font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700">
+                            <input ref={fileUploadRef} type='file' hidden />
+                            <button onClick={handleFileUpload} className="inline-block px-4 py-2 text-xs font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700">
                                 <span className='mr-3'><PlusIcon className='inline-block w-4 h-4' /></span>Add File
                             </button>
                         </div>
+
+                        <FileUploading />
 
                         <div className="overflow-x-auto">
                             <table className="min-w-full text-sm bg-white divide-y-2 divide-gray-200">
@@ -121,7 +154,7 @@ export default function TemporaryDashboard() {
                                 </tbody>
                             </table>
                         </div>
-                        <Modal open={isModalOpen} setOpen={setIsModalOpen} content={qrCode} />
+                        <QRModal open={isModalOpen} setOpen={setIsModalOpen} content={qrCode} />
                     </div>
                 </main>
             </div>
